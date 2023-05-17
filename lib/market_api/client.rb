@@ -62,8 +62,9 @@ module MarketApi
       connection.get("/api/BestBuyOffer/#{class_id}_#{instance_id}")
     end
 
-    def mass_info(list)
-      url = "https://market.csgo.com/api/MassInfo/2/2/1/2?key=#{api_key}"
+    def mass_info(list, searching_key: nil)
+      url_key = searching_key || api_key
+      url = "https://market.csgo.com/api/MassInfo/2/1/1/2?key=#{url_key}"
       uri = URI(url)
       Net::HTTP.post_form(uri, 'list' => list)
     end
