@@ -1,4 +1,5 @@
 require_relative 'connection'
+require 'net/http'
 
 module MarketApi
   class Client
@@ -19,7 +20,13 @@ module MarketApi
       money_send: { path: '/api/v2/money-send', verb: :get },
       trade_check: { path: '/api/Test', verb: :get },
       update_inventory: { path: '/api/UpdateInventory', verb: :get },
-      bind_steam_api_key: { path: '/api/v2/set-steam-api-key', verb: :get }
+      bind_steam_api_key: { path: '/api/v2/set-steam-api-key', verb: :get },
+      current_730: { path: 'itemdb/current_730.json', verb: :get },
+      prices_rub_c_i: { path: '/api/v2/prices/class_instance/RUB.json', verb: :get },
+      trades: { path: '/api/v2/trades', verb: :get },
+      delete_orders: { path: '/api/DeleteOrders', verb: :get },
+      ws_auth: { path: '/api/v2/get-ws-auth', verb: :get },
+      get_orders: { path: '/api/GetOrders', verb: :get}
     }
 
     def initialize(api_key:)
@@ -41,6 +48,24 @@ module MarketApi
 
     def set_prices(class_id, instance_id, price)
       connection.get("/api/MassSetPrice/#{class_id}_#{instance_id}/#{price}")
+    end
+
+    def itemdb(csv_path)
+      connection.get("/itemdb/#{csv_path}")
+    end
+
+    def process_order(class_id, instance_id, price)
+      connection.get("/api/ProcessOrder/#{class_id}/#{instance_id}/#{price}")
+    end
+
+    def best_buy_order(class_id, instance_id)
+      connection.get("/api/BestBuyOffer/#{class_id}_#{instance_id}")
+    end
+
+    def mass_info(list)
+      url = "https://market.csgo.com/api/MassInfo/2/2/1/2?key=#{api_key}"
+      uri = URI(url)
+      Net::HTTP.post_form(uri, 'list' => list)
     end
   end
 end
