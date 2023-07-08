@@ -17,7 +17,6 @@ module MarketApi
       market_inventory: { path: '/api/v2/items', verb: :get },
       prices_usd: { path: '/api/v2/prices/USD.json', verb: :get },
       ping: { path: '/api/PingPong/direct', verb: :get },
-      money_send: { path: '/api/v2/money-send', verb: :get },
       trade_check: { path: '/api/Test', verb: :get },
       update_inventory: { path: '/api/UpdateInventory', verb: :get },
       bind_steam_api_key: { path: '/api/v2/set-steam-api-key', verb: :get },
@@ -40,6 +39,14 @@ module MarketApi
 
     def connection
       @connection ||= Connection.create(api_key: api_key)
+    end
+
+    def money_send(amount:, whom:, pay_password:)
+      connection.get("/api/v2/money-send/#{amount}/#{whom}?pay_pass=#{pay_password}")
+    end
+
+    def change_currency_to_usd(new_currency: 'USD')
+      connection.get("/api/v2/change-currency/#{new_currency}")
     end
 
     def best_offer(class_id, instance_id)
