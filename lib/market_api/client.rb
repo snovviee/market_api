@@ -19,13 +19,15 @@ module MarketApi
       ping: { path: '/api/PingPong/direct', verb: :get },
       trade_check: { path: '/api/Test', verb: :get },
       update_inventory: { path: '/api/UpdateInventory', verb: :get },
+      update_inventory_v2: { path: '/api/v2/update-inventory', verb: :get },
       bind_steam_api_key: { path: '/api/v2/set-steam-api-key', verb: :get },
       current_730: { path: 'itemdb/current_730.json', verb: :get },
       prices_rub_c_i: { path: '/api/v2/prices/class_instance/RUB.json', verb: :get },
       trades: { path: '/api/v2/trades', verb: :get },
       delete_orders: { path: '/api/DeleteOrders', verb: :get },
       ws_auth: { path: '/api/v2/get-ws-auth', verb: :get },
-      get_orders: { path: '/api/GetOrders', verb: :get}
+      get_orders: { path: '/api/GetOrders', verb: :get },
+      ping_v2: { path: '/api/v2/ping', verb: :get }
     }
 
     def initialize(api_key:)
