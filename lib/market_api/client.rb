@@ -9,6 +9,7 @@ module MarketApi
       balance: { path: '/api/GetMoney', verb: :get },
       p2p: { path: '/api/v2/trade-request-give-p2p-all', verb: :get },
       remove_all: { path: '/api/RemoveAll', verb: :get },
+      remove_all_v2: { path: '/api/v2/remove-all-from-sale', verb: :get },
       get_money: { path: '/api/GetMoney', verb: :get },
       pay_password: { path: '/api/v2/set-pay-password', verb: :get },
       list_items: { path: '/api/v2/get-list-items-info', verb: :get },
@@ -53,6 +54,12 @@ module MarketApi
 
     def best_offer(class_id, instance_id)
       connection.get("/api/BestSellOffer/#{class_id}_#{instance_id}")
+    end
+
+    def search_list_items_by_hash_name_all(list_item_name)
+      url = "https://market.csgo.com/api/v2/search-list-items-by-hash-name-all?key=#{api_key}"
+      uri = URI(url)
+      da = Net::HTTP.post_form(uri, 'list_hash_name[]=' => list_item_name)
     end
 
     def set_prices(class_id, instance_id, price)
