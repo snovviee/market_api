@@ -7,6 +7,7 @@ module MarketApi
 
     ENDPOINTS = {
       balance: { path: '/api/GetMoney', verb: :get },
+      balance_v2: { path: '/api/v2/get-money', verb: :get },
       p2p: { path: '/api/v2/trade-request-give-p2p-all', verb: :get },
       remove_all: { path: '/api/RemoveAll', verb: :get },
       remove_all_v2: { path: '/api/v2/remove-all-from-sale', verb: :get },
@@ -19,6 +20,7 @@ module MarketApi
       prices_usd: { path: '/api/v2/prices/USD.json', verb: :get },
       ping: { path: '/api/PingPong/direct', verb: :get },
       trade_check: { path: '/api/Test', verb: :get },
+      trade_check_v2: { path: '/api/v2/test', verb: :get },
       update_inventory: { path: '/api/UpdateInventory', verb: :get },
       update_inventory_v2: { path: '/api/v2/update-inventory', verb: :get },
       bind_steam_api_key: { path: '/api/v2/set-steam-api-key', verb: :get },
@@ -64,6 +66,10 @@ module MarketApi
 
     def set_prices(class_id, instance_id, price)
       connection.get("/api/MassSetPrice/#{class_id}_#{instance_id}/#{price}")
+    end
+
+    def set_prices_v2(item_id, price, cur = 'USD')
+      connection.get("/api/v2/set-price?/&item_id=#{item_id}&price=#{price}&cur=#{cur}")
     end
 
     def itemdb(csv_path)
