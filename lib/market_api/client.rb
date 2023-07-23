@@ -87,6 +87,10 @@ module MarketApi
     def checkin_history(page_number)
       connection.get("/api/v2/checkin-history?/&page=#{page_number}")
     end
+
+    def operation_history(date, date_end)
+      connection.get("/api/v2/operation-history?/&date=#{date}&date_end=#{date_end}")
+    end
     
     def mass_info(list, searching_key: nil)
       url_key = searching_key || api_key
