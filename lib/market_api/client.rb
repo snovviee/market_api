@@ -84,6 +84,10 @@ module MarketApi
       connection.get("/api/BestBuyOffer/#{class_id}_#{instance_id}")
     end
 
+    def checkin_history(page_number)
+      connection.get("/api/v2/checkin-history?/&page=#{page_number}")
+    end
+    
     def mass_info(list, searching_key: nil)
       url_key = searching_key || api_key
       url = "https://market.csgo.com/api/MassInfo/2/1/1/2?key=#{url_key}"
